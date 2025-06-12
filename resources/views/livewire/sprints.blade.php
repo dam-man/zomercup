@@ -91,7 +91,7 @@ new #[Layout('components.layouts.app')] class extends Component {
 {{--		<flux:radio value="RUNNING_SPRINT_2" label="Running R2"/>--}}
 {{--	</flux:radio.group>--}}
 
-	<flux:select variant="listbox" wire:model.live="element" clearable placeholder="Onderdeel" class="w-full md:w-96">
+	<flux:select variant="listbox" wire:model.live="element" clearable placeholder="Onderdeel" class="w-full md:w-96 mb-4">
 		<flux:select.option value="SKEELER_SPRINT_1">Skeeleren Sprint 1</flux:select.option>
 		<flux:select.option value="SKEELER_SPRINT_2">Skeeleren Sprint 2</flux:select.option>
 		<flux:select.option value="RUNNING_SPRINT_1">Hardlopen Sprint 1</flux:select.option>
