@@ -65,12 +65,12 @@ new class extends Component {
         @endif
 
         <flux:callout.heading class="mt-n2">
-            <span class="text-xl text-white font-extrabold">ID# {{$timer->athlete->start_no}}</span>
+            <span class="text-xl text-gray-600 dark:text-white font-extrabold">ID# {{$timer->athlete->start_no}}</span>
             <flux:badge size="sm" color="lime">{{$timer->element_text}}</flux:badge>
         </flux:callout.heading>
 
         <flux:callout.text>
-            <span class="text-lg text-white font-extrabold">
+            <span class="text-lg text-gray-700 dark:text-white font-extrabold">
                 {{$timer->athlete->name}} - {{$timer->athlete->club}}
             </span>
         </flux:callout.text>

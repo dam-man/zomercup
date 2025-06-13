@@ -92,7 +92,7 @@ new #[Layout('components.layouts.app')] class extends Component {
 	</flux:select>
 
 	@foreach($sprints as $sprint)
-		<flux:card wire:click="OpenRaceDialog({{$sprint->id}})" class="hover:bg-zinc-50 dark:hover:bg-zinc-700 mb-3">
+		<flux:card wire:click="OpenRaceDialog({{$sprint->id}})" class=" hover:bg-zinc-50 dark:hover:bg-zinc-700 mb-3">
 			<div class="w-full text-md text-center font-extrabold">
 				<flux:badge size="sm" color="{{$sprint->completed_at ? 'red' : 'green'}}" class="mr-3">Inner Lane</flux:badge>
 				@if($sprint->athlete_one)
