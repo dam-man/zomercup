@@ -199,7 +199,7 @@ new #[Layout('components.layouts.app')] class extends Component {
 			<flux:radio.group wire:model.live="element" variant="cards" class="max-sm:flex-col mb-5">
 				<flux:radio value="CYCLING" label="Fietsen 5 km" class="!w-full"/>
 				<flux:radio value="RUNNING_3KM" label="Hardlopen 3 km"/>
-				<flux:radio value="INLINE_SKATING" label="Skeeleren 1500 mtr"/>
+				<flux:radio value="INLINE_SKATING" label="Skeeleren Inline"/>
 			</flux:radio.group>
 
 			@if($element  !== 'CYCLING')
