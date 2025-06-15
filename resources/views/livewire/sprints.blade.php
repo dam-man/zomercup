@@ -72,7 +72,7 @@ new #[Layout('components.layouts.app')] class extends Component {
 		                 ->with(['athlete_one', 'athlete_two'])
 		                 ->where('element', $this->element)
 		                 ->orderBy('completed_at')
-		                 ->orderBy('id')
+		                 ->orderByDesc('id')
 		                 ->get();
 
 		return [
