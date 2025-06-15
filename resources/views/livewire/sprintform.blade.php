@@ -94,13 +94,13 @@ new class extends Component {
 					<flux:select.option value="RUNNING_SPRINT_2">Hardlopen Sprint 2</flux:select.option>
 				</flux:select>
 
-				<flux:select variant="listbox" wire:model="athlete_1" placeholder="Binnenbaan" label="Binnenbaan">
+				<flux:select variant="listbox" searchable wire:model="athlete_1" placeholder="Binnenbaan" label="Binnenbaan">
 					@foreach($athletes as $athlete)
 						<flux:select.option value="{{$athlete->id}}">{{$athlete->name}} ({{$athlete->start_no}})</flux:select.option>
 					@endforeach
 				</flux:select>
 
-				<flux:select variant="listbox" wire:model="athlete_2" placeholder="Buitenbaan" label="Buitenbaan">
+				<flux:select variant="listbox" searchable wire:model="athlete_2" placeholder="Buitenbaan" label="Buitenbaan">
 					@foreach($athletes as $athlete)
 						<flux:select.option value="{{$athlete->id}}">{{$athlete->name}} ({{$athlete->start_no}})</flux:select.option>
 					@endforeach
