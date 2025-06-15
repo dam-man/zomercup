@@ -10,8 +10,8 @@ new #[Layout('components.layouts.app')] class extends Component {
 
 	use WithPagination;
 
-	public int    $id     = 0;
-	public string $filter = '';
+	public int    $id       = 0;
+	public string $filter   = '';
 	public string $category = '';
 
 	public function edit($id): void
@@ -31,10 +31,10 @@ new #[Layout('components.layouts.app')] class extends Component {
 	public function with(): array
 	{
 		$categories = Athlete::query()
-			->where('category', '!=', '')
-			->distinct()
-			->pluck('category')
-			->toArray();
+		                     ->where('category', '!=', '')
+		                     ->distinct()
+		                     ->pluck('category')
+		                     ->toArray();
 
 		$sprints = Sprint::query()
 		                 ->with(['athlete_one', 'athlete_two'])
@@ -42,12 +42,13 @@ new #[Layout('components.layouts.app')] class extends Component {
 			                 $query->where('element', $this->filter);
 		                 })
 		                 ->when($this->category, function ($query) {
-			                 $query->whereRelation('athlete_one','category', $this->category);
+			                 $query->whereRelation('athlete_one', 'category', $this->category);
 		                 })
+		                 ->orderByDesc('id')
 		                 ->paginate(25);
 
 		return [
-			'sprints' => $sprints,
+			'sprints'    => $sprints,
 			'categories' => $categories,
 		];
 	}
