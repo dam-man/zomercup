@@ -55,15 +55,15 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 
 	@foreach($sprints as $index => $sprint)
 		<div class="w-full flex mt-3">
-			<div class="w-14 h-14 mr-5 flex-shrink-0 border border-b-gray-600 dark:border-white rounded-md flex items-center justify-center text-xl font-semibold">
-				{{$index+1}}
+			<div class="w-10 h-10 mt-3 mr-4 flex-shrink-0 {{$sprint->completed_at ? 'bg-green-800' : ''}} border border-b-gray-600 dark:border-white rounded-md flex items-center justify-center text-lg font-semibold">
+				{{str_pad($index+1, 2, '0', STR_PAD_LEFT)}}
 			</div>
 			<div class="flex-1 text-sm">
 				<div class="w-full h-6 mt-1">
 					@if($sprint->athlete_one)
 						<div class="float-right">
 							@if($sprint->athlete_one_timer_time)
-								<flux:badge size="sm" color="{{$sprint->athlete_one_timer_time < $sprint->athlete_two_timer_time ? 'lime' : 'grey'}}">
+								<flux:badge size="sm" color="{{$sprint->athlete_one_timer_time < $sprint->athlete_two_timer_time ? 'green' : 'grey'}}">
 									{{ $sprint->athlete_one_timer_time ?number_format($sprint->athlete_one_timer_time, 2, '.', '') : null}}
 								</flux:badge>
 							@endif
