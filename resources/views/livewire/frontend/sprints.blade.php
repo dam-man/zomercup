@@ -68,7 +68,7 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 								</flux:badge>
 							@endif
 						</div>
-						{{$sprint->athlete_one->name}} <span class="text-xs">(Binnenbaan)</span>
+						{{$sprint->athlete_one->name}} <span class="text-xs"></span>
 					@else
 						-/-
 					@endif
@@ -83,7 +83,7 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 								</flux:badge>
 							@endif
 						</div>
-						{{$sprint->athlete_two->name}} <span class="text-xs">(Buitenbaan)</span>
+						{{$sprint->athlete_two->name}} <span class="text-xs"></span>
 					@else
 						-/-
 					@endif
