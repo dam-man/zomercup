@@ -126,7 +126,7 @@ new #[Layout('components.layouts.app')] class extends Component {
 		               })
 		               ->where('element', $this->element)
 		               ->orderBy('start_time')
-		               ->orderByDesc('total')
+		               //->orderByDesc('total')
 		               ->get();
 
 		$categories = Athlete::query()

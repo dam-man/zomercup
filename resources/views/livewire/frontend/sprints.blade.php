@@ -46,11 +46,6 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 }; ?>
 
 <div>
-{{--	<a href="{{ route('login') }}"--}}
-{{--	   class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"--}}
-{{--	>--}}
-{{--		Log in--}}
-{{--	</a>--}}
 
 	<flux:button href="{{ route('login') }}" class="w-full md:w-96 mb-4"  variant="primary">
 		Inloggen
@@ -93,7 +88,7 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 						@if($sprint->athlete_two)
 							<div class="float-right">
 								@if($sprint->athlete_two_timer_time)
-									<flux:badge size="sm" color="{{$sprint->athlete_two_timer_time < $sprint->athlete_one_timer_time ? 'lime' : 'grey'}}">
+									<flux:badge size="sm" color="{{$sprint->athlete_two_timer_time < $sprint->athlete_one_timer_time ? 'green' : 'grey'}}">
 										{{ $sprint->athlete_two_timer_time ?number_format($sprint->athlete_two_timer_time, 2, '.', '') : null}}
 									</flux:badge>
 								@endif
