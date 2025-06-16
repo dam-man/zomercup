@@ -3,13 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Volt::route('/', 'frontend.sprints')->name('test.index');
+
+//Route::view('dashboard', 'dashboard')
+//    ->middleware(['auth', 'verified'])
+//    ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
 	Volt::route('athletes', 'athletes')->name('athletes.index');

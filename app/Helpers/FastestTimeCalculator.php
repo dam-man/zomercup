@@ -42,7 +42,11 @@ class FastestTimeCalculator
 
 			if ($timers == 0)
 			{
-				Sprint::query()->whereId($run)->update(['completed_at' => now()]);
+				Sprint::query()
+				      ->whereId($run)
+				      ->update([
+						  'completed_at' => now()
+				      ]);
 			}
 		}
 	}
