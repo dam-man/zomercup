@@ -73,7 +73,7 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 						-/-
 					@endif
 				</div>
-				<flux:separator class="mb-1 mt-1"/>
+				<flux:separator class="mt-1"/>
 				<div class="w-full h-6 ">
 					@if($sprint->athlete_two)
 						<div class="float-right">
