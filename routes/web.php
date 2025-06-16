@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 
-Volt::route('/', 'frontend.sprints')->name('test.index');
+Volt::route('/', 'frontend.sprints')->name('home');
+//Volt::route('/', 'frontend.sprints')->name('home');
 
 //Route::view('dashboard', 'dashboard')
 //    ->middleware(['auth', 'verified'])

@@ -46,6 +46,16 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 }; ?>
 
 <div>
+{{--	<a href="{{ route('login') }}"--}}
+{{--	   class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"--}}
+{{--	>--}}
+{{--		Log in--}}
+{{--	</a>--}}
+
+	<flux:button href="{{ route('login') }}" class="w-full md:w-96 mb-4"  variant="primary">
+		Inloggen
+	</flux:button>
+
 	<flux:select variant="listbox" wire:model.live="element" clearable placeholder="Onderdeel" class="w-full md:w-96 mb-4">
 		<flux:select.option value="SKEELER_SPRINT_1">Skeeleren Sprint 1</flux:select.option>
 		<flux:select.option value="SKEELER_SPRINT_2">Skeeleren Sprint 2</flux:select.option>
