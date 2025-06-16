@@ -60,7 +60,7 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 			</div>
 			<div class="flex-1 text-sm">
 				<div class="w-full h-6 mt-1">
-					@if($sprint->athlete_one->name)
+					@if($sprint->athlete_one)
 						<div class="float-right">
 							@if($sprint->athlete_one_timer_time)
 								<flux:badge size="sm" color="{{$sprint->athlete_one_timer_time < $sprint->athlete_two_timer_time ? 'lime' : 'grey'}}">
@@ -75,7 +75,7 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 				</div>
 				<flux:separator class="mb-1 mt-1"/>
 				<div class="w-full h-6 ">
-					@if($sprint->athlete_one->name)
+					@if($sprint->athlete_two)
 						<div class="float-right">
 							@if($sprint->athlete_two_timer_time)
 								<flux:badge size="sm" color="{{$sprint->athlete_two_timer_time < $sprint->athlete_one_timer_time ? 'lime' : 'grey'}}">
