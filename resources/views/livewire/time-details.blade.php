@@ -67,6 +67,9 @@ new class extends Component {
         <flux:callout.heading class="mt-n2">
             <span class="text-xl text-gray-600 dark:text-white font-extrabold">ID# {{$timer->athlete->start_no}}</span>
             <flux:badge size="sm" color="lime">{{$timer->element_text}}</flux:badge>
+            @if($timer->lane)
+            <flux:badge size="sm" color="orange">{{$timer->lane}}</flux:badge>
+                @endif
         </flux:callout.heading>
 
         <flux:callout.text>

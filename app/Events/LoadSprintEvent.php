@@ -41,6 +41,7 @@ class LoadSprintEvent implements ShouldBroadcastNow
 				],
 				[
 					'element'    => $this->element,
+					'lane'       => 'Inner Lane',
 					'start'      => null,
 					'end'        => null,
 					'total'      => null,
@@ -51,7 +52,6 @@ class LoadSprintEvent implements ShouldBroadcastNow
 					'duration'   => 0,
 				]
 			);
-
 		}
 
 		if ($sprint->athlete_2)
@@ -63,6 +63,7 @@ class LoadSprintEvent implements ShouldBroadcastNow
 				],
 				[
 					'element'    => $this->element,
+					'lane'       => 'Outer Lane',
 					'start'      => null,
 					'end'        => null,
 					'total'      => null,

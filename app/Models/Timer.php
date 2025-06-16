@@ -12,6 +12,7 @@ class Timer extends Model
 		'run_id',
 		'athlete_id',
 		'element',
+		'lane',
 		'start_time',
 		'end_time',
 		'duration',
