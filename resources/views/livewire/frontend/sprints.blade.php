@@ -55,7 +55,7 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 
 	@foreach($sprints as $index => $sprint)
 		<div class="w-full flex mt-3">
-			<div class="w-13 h-13 mr-5 flex-shrink-0 border border-b-gray-600 dark:border-white rounded-md flex items-center justify-center text-xl font-semibold">
+			<div class="w-14 h-14 mr-5 flex-shrink-0 border border-b-gray-600 dark:border-white rounded-md flex items-center justify-center text-xl font-semibold">
 				{{$index+1}}
 			</div>
 			<div class="flex-1 text-sm">
@@ -73,7 +73,7 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 						-/-
 					@endif
 				</div>
-				<flux:separator class="mt-1"/>
+				<flux:separator class="mb-1 mt-1"/>
 				<div class="w-full h-6 ">
 					@if($sprint->athlete_two)
 						<div class="float-right">
