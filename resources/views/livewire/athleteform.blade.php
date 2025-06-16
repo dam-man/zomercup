@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Athlete;
+use App\Models\Sprint;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Reactive;
 use Livewire\Volt\Component;
@@ -41,15 +42,18 @@ new class extends Component {
 		}
 	}
 
-	public function store()
+	public function store(): void
 	{
 		$validated = $this->validated();
 
 		$this->athlete = Athlete::create($validated);
 
-		foreach ($this->elements as $element)
+		if (count($this->elements))
 		{
-			$this->athlete->elements()->create(['element' => $element]);
+			foreach ($this->elements as $element)
+			{
+				$this->athlete->elements()->create(['element' => $element]);
+			}
 		}
 
 		Flux::toast(
@@ -62,7 +66,7 @@ new class extends Component {
 		$this->redirect(route('athletes.index'), navigate: true);
 	}
 
-	public function update()
+	public function update(): void
 	{
 		$validated = $this->validated();
 
@@ -70,9 +74,23 @@ new class extends Component {
 
 		$this->athlete->elements()->delete();
 
-		foreach ($this->elements as $element)
+		if ( ! in_array('INLINE_SKATING', $this->elements))
 		{
-			$this->athlete->elements()->create(['element' => $element]);
+			Sprint::query()
+			      ->where('athlete_1', $this->athlete->id)
+			      ->update(['athlete_1' => null]);
+
+			Sprint::query()
+			      ->where('athlete_2', $this->athlete->id)
+			      ->update(['athlete_2' => null]);
+		}
+
+		if (count($this->elements))
+		{
+			foreach ($this->elements as $element)
+			{
+				$this->athlete->elements()->create(['element' => $element]);
+			}
 		}
 
 		Flux::toast(
@@ -92,7 +110,7 @@ new class extends Component {
 			'start_no' => ['required', 'int', Rule::unique('athletes')->ignore($this->id)],
 			'club'     => 'required|string|max:255',
 			'category' => 'required|string|max:255',
-			'elements' => 'required|array',
+			'elements' => 'array',
 		]);
 	}
 
@@ -101,7 +119,7 @@ new class extends Component {
 
 <div>
 	<div class="mb-8">
-		<flux:heading size="lg" class="mb-8">{{$id ? 'Bewerk ' . $athlete->name : 'Deelnemer Toevoegen'}}</flux:heading>
+		<flux:heading size="lg" class="mb-8">{{$id ? 'Bewerk ' . $athlete->name .' ('.$athlete->id.')' : 'Deelnemer Toevoegen'}}</flux:heading>
 
 		<form wire:submit="{{$id ? 'update' : 'store'}}">
 

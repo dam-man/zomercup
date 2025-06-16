@@ -81,7 +81,7 @@ new class extends Component {
 
 <div>
 	<div class="mb-8">
-		<flux:heading size="lg" class="mb-8">{{$id ? 'Bewerk ' . $sprint->element_text . ' - Run: ' . $sprint->id : 'Toevoegen'}}</flux:heading>
+		<flux:heading size="lg" class="mb-8">{{$id ? 'Bewerk ' . $sprint?->element_text . ' - Run: ' . $sprint->id : 'Toevoegen'}}</flux:heading>
 
 		<form wire:submit="{{$id ? 'update' : 'store'}}">
 

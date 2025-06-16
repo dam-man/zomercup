@@ -28,6 +28,17 @@ new #[Layout('components.layouts.app')] class extends Component {
 		$this->modal('sprint-form')->show();
 	}
 
+	public function removeRecord($id)
+	{
+		Sprint::query()->whereId($id)->delete();
+
+		Flux::toast(
+			text: 'Sprint Verwijderd',
+			heading: 'Succes',
+			variant: 'success',
+		);
+	}
+
 	public function with(): array
 	{
 		$categories = Athlete::query()
@@ -94,6 +105,9 @@ new #[Layout('components.layouts.app')] class extends Component {
 			<flux:table.column>
 				<div class="w-full text-center">Aangemaakt</div>
 			</flux:table.column>
+			<flux:table.column>
+				<div class="w-full text-center">Acties</div>
+			</flux:table.column>
 		</flux:table.columns>
 		<flux:table.rows>
 			@foreach($sprints as $sprint)
@@ -102,7 +116,9 @@ new #[Layout('components.layouts.app')] class extends Component {
 						{{$sprint->id}}
 					</flux:table.cell>
 					<flux:table.cell>
-						{{$sprint->element_text ?? ''}}
+						@if($sprint->element_text)
+							{{$sprint->element_text}}
+						@endif
 					</flux:table.cell>
 					<flux:table.cell>
 						{{$sprint->athlete_one->name ?? ''}}
@@ -134,12 +150,17 @@ new #[Layout('components.layouts.app')] class extends Component {
 							{{ $sprint->created_at->format('d-m-Y H:i') }}
 						</div>
 					</flux:table.cell>
+					<flux:table.cell variant="strong">
+						<div class="w-full text-center">
+							<flux:button wire:click.stop="removeRecord({{$sprint->id}})" wire:confirm="Weet je dit zeker?" icon="trash"/>
+						</div>
+					</flux:table.cell>
 				</flux:table.row>
 			@endforeach
 		</flux:table.rows>
 	</flux:table>
 
 	<flux:modal name="sprint-form" variant="flyout" class="space-y-6">
-		<livewire:sprintform :id="$id" :key="$id" />
+		<livewire:sprintform :id="$id" :key="$id"/>
 	</flux:modal>
 </div>

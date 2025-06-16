@@ -17,6 +17,9 @@ class Sprint extends Model
 
 	public function getElementTextAttribute(): float|string|null
 	{
+		if (is_null($this->element)) {
+			return null;
+		}
 		return ucwords(str_replace('_', ' ', strtolower($this->element)));
 	}
 
