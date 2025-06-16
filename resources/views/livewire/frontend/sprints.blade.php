@@ -60,25 +60,33 @@ new #[Layout('components.layouts.app.frontend')] class extends Component {
 			</div>
 			<div class="flex-1 text-sm">
 				<div class="w-full h-6 mt-1">
-					<div class="float-right">
-						@if($sprint->athlete_one_timer_time)
-							<flux:badge size="sm" color="{{$sprint->athlete_one_timer_time < $sprint->athlete_two_timer_time ? 'lime' : 'grey'}}">
-								{{ $sprint->athlete_one_timer_time ?number_format($sprint->athlete_one_timer_time, 2, '.', '') : null}}
-							</flux:badge>
-						@endif
-					</div>
-					{{$sprint->athlete_one->name}} <span class="text-xs">(Binnenbaan)</span>
+					@if($sprint->athlete_one->name)
+						<div class="float-right">
+							@if($sprint->athlete_one_timer_time)
+								<flux:badge size="sm" color="{{$sprint->athlete_one_timer_time < $sprint->athlete_two_timer_time ? 'lime' : 'grey'}}">
+									{{ $sprint->athlete_one_timer_time ?number_format($sprint->athlete_one_timer_time, 2, '.', '') : null}}
+								</flux:badge>
+							@endif
+						</div>
+						{{$sprint->athlete_one->name}} <span class="text-xs">(Binnenbaan)</span>
+					@else
+						-/-
+					@endif
 				</div>
 				<flux:separator class="mb-1 mt-1"/>
 				<div class="w-full h-6 ">
-					<div class="float-right">
-						@if($sprint->athlete_two_timer_time)
-							<flux:badge size="sm" color="{{$sprint->athlete_two_timer_time < $sprint->athlete_one_timer_time ? 'lime' : 'grey'}}">
-								{{ $sprint->athlete_two_timer_time ?number_format($sprint->athlete_two_timer_time, 2, '.', '') : null}}
-							</flux:badge>
-						@endif
-					</div>
-					{{$sprint->athlete_two->name}} <span class="text-xs">(Buitenbaan)</span>
+					@if($sprint->athlete_one->name)
+						<div class="float-right">
+							@if($sprint->athlete_two_timer_time)
+								<flux:badge size="sm" color="{{$sprint->athlete_two_timer_time < $sprint->athlete_one_timer_time ? 'lime' : 'grey'}}">
+									{{ $sprint->athlete_two_timer_time ?number_format($sprint->athlete_two_timer_time, 2, '.', '') : null}}
+								</flux:badge>
+							@endif
+						</div>
+						{{$sprint->athlete_two->name}} <span class="text-xs">(Buitenbaan)</span>
+					@else
+						-/-
+					@endif
 				</div>
 			</div>
 		</div>
