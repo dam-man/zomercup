@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Helpers\FastestTimeCalculator;
+use App\Models\Athlete;
+use App\Models\Point;
 use App\Models\Timer;
 use Illuminate\Console\Command;
 
@@ -25,18 +26,117 @@ class CheckFastestResult extends Command
 	/**
 	 * Execute the console command.
 	 */
-	public function handle()
+	public function handle(): void
 	{
-	//	(new FastestTimeCalculator)->calculate(4, 'SKEELER_SPRINT_2', 'M12', 0);
+		// Getting all unique categories from athletes
+		$categories = Athlete::query()->pluck('category')->unique()->toArray();
 
-//		$timers = Timer::query()
-//		               ->where('element', 'SKEELER_SPRINT_2')
-//		               ->orderBy('total')
-//		               ->get();
-//
-//		foreach ($timers as $key => $timer)
-//		{
-//			$this->info($key . ' - Processing timer: ' . $timer->id);
-//		}
+		$elements = [
+			'RUNNING_SPRINT',
+			'SKEELER_SPRINT',
+		];
+
+		foreach($elements as $element)
+		{
+			$this->getFastestResults($element);
+		}
+
+
+		foreach ($categories as $category)
+		{
+			foreach($elements as $element)
+			{
+				$this->updatePointsByCategory($category, $element);
+			}
+		}
+
+		$this->updatePointsTables();
 	}
+
+	public function updatePointsTables(): void
+	{
+		Point::query()->delete();
+
+		$athletes = Athlete::query()->get();
+
+		foreach ($athletes as $atlete)
+		{
+			$timers = Timer::query()
+			               ->where('athlete_id', $atlete->id)
+			               ->where('points', '>', 0)
+			               ->orderBy('total')
+			               ->take(3)
+			               ->get();
+
+			if ($timers)
+			{
+				foreach ($timers as $timer)
+				{
+					Point::query()
+					     ->create([
+						     'athlete_id' => $atlete->id,
+						     'timer_id'   => $timer->id,
+						     'points'     => $timer->points,
+					     ]);
+				}
+			}
+		}
+	}
+
+	public function updatePointsByCategory($category, $element = 'SKEELER_SPRINT'): void
+	{
+		Timer::query()
+		     ->whereRelation('athlete', 'category', $category)
+		     ->whereLike('element', $element . '%')
+		     ->update(
+			     ['points' => 0]
+		     );
+
+		$timers = Timer::query()
+		               ->whereRelation('athlete', 'category', $category)
+		               ->where('fastest', 1)
+		               ->whereLike('element', $element . '%')
+		               ->orderBy('total')
+		               ->get();
+
+		foreach ($timers as $index => $timer)
+		{
+			$timer->points = $this->getPointsForIndex($index);
+			$timer->update();
+		}
+	}
+
+	public function getFastestResults($element): void
+	{
+		$athletes = Athlete::query()->get();
+
+		foreach ($athletes as $atlete)
+		{
+			Timer::query()
+			     ->where('athlete_id', $atlete->id)
+			     ->update(['fastest' => 0]);
+
+			$timer = Timer::query()
+			              ->where('athlete_id', $atlete->id)
+			              ->whereLike('element', $element . '%')
+			              ->orderBy('total')
+			              ->first();
+
+			if ($timer)
+			{
+				$timer->fastest = true;
+				$timer->save();
+			}
+		}
+	}
+
+	public function getPointsForIndex($index): int|string
+	{
+		$points = [
+			'10.1', '9', '8', '7', '6', '5', '4', '3', '2', '1',
+		];
+
+		return $points[$index] ?? 0;
+	}
+
 }

@@ -4,18 +4,14 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 
-Volt::route('/', 'frontend.sprints')->name('home');
-//Volt::route('/', 'frontend.sprints')->name('home');
-
-//Route::view('dashboard', 'dashboard')
-//    ->middleware(['auth', 'verified'])
-//    ->name('dashboard');
+Volt::route('/', 'frontend.home')->name('home');
+Volt::route('/sprints', 'frontend.sprints')->name('frontend.sprints');
 
 Route::middleware(['auth'])->group(function () {
-	Volt::route('athletes', 'athletes')->name('athletes.index');
-	Volt::route('timing', 'timing')->name('timing.index');
-	Volt::route('sprints', 'sprints')->name('sprints.index');
-	Volt::route('sprint/indeling', 'sprintoverview')->name('sprint.overview');
+	Volt::route('admin/athletes', 'athletes')->name('athletes.index');
+	Volt::route('admin/timing', 'timing')->name('timing.index');
+	Volt::route('admin/sprints', 'sprints')->name('sprints.index');
+	Volt::route('admin/sprint/indeling', 'sprintoverview')->name('sprint.overview');
 
     Route::redirect('settings', 'settings/profile');
 
