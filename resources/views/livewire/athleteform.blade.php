@@ -72,26 +72,26 @@ new class extends Component {
 
 		$this->athlete->update($validated);
 
-		$this->athlete->elements()->delete();
-
-		if ( ! in_array('INLINE_SKATING', $this->elements))
-		{
-			Sprint::query()
-			      ->where('athlete_1', $this->athlete->id)
-			      ->update(['athlete_1' => null]);
-
-			Sprint::query()
-			      ->where('athlete_2', $this->athlete->id)
-			      ->update(['athlete_2' => null]);
-		}
-
-		if (count($this->elements))
-		{
-			foreach ($this->elements as $element)
-			{
-				$this->athlete->elements()->create(['element' => $element]);
-			}
-		}
+//		$this->athlete->elements()->delete();
+//
+//		if ( ! in_array('INLINE_SKATING', $this->elements))
+//		{
+//			Sprint::query()
+//			      ->where('athlete_1', $this->athlete->id)
+//			      ->update(['athlete_1' => null]);
+//
+//			Sprint::query()
+//			      ->where('athlete_2', $this->athlete->id)
+//			      ->update(['athlete_2' => null]);
+//		}
+//
+//		if (count($this->elements))
+//		{
+//			foreach ($this->elements as $element)
+//			{
+//				$this->athlete->elements()->create(['element' => $element]);
+//			}
+//		}
 
 		Flux::toast(
 			text: 'Deelnemer is bijgewerkt',
