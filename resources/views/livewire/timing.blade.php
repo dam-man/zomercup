@@ -4,6 +4,7 @@ use App\Events\LoadTimersEvent;
 use App\Events\UpdateTimersEvent;
 use App\Models\Athlete;
 use App\Models\Timer;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
@@ -116,17 +117,33 @@ new #[Layout('components.layouts.app')] class extends Component {
 
 	public function with(): array
 	{
+//		$timers = Timer::query()
+//		               ->with('athlete')
+//		               ->when($this->category, function ($query) {
+//			               $query->whereRelation('athlete', 'category', $this->category);
+//		               })
+//		               ->when($this->runId != 0, function ($query) {
+//			               $query->where('run_id', $this->runId);
+//		               })
+//		               ->where('element', $this->element)
+//		               ->orderBy('start_time')
+//		               ->orderByDesc('total')
+//		               ->get();
+
 		$timers = Timer::query()
+		               ->join('athletes', 'timers.athlete_id', '=', 'athletes.id')
 		               ->with('athlete')
 		               ->when($this->category, function ($query) {
-			               $query->whereRelation('athlete', 'category', $this->category);
+			               $query->where('athletes.category', $this->category);
 		               })
 		               ->when($this->runId != 0, function ($query) {
-			               $query->where('run_id', $this->runId);
+			               $query->where('timers.run_id', $this->runId);
 		               })
-		               ->where('element', $this->element)
-		               ->orderBy('start_time')
-		               //->orderByDesc('total')
+		               ->where('timers.element', $this->element)
+		               ->orderBy('athletes.start_no')
+		               //->orderBy('timers.start_time')
+		               ->orderByDesc('timers.total')
+		               ->select('timers.*')  // Select only timer fields to avoid conflicts
 		               ->get();
 
 		$categories = Athlete::query()
