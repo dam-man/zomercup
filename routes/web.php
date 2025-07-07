@@ -8,6 +8,7 @@ Volt::route('/', 'frontend.home')->name('home');
 Volt::route('/sprints', 'frontend.sprints')->name('frontend.sprints');
 
 Route::middleware(['auth'])->group(function () {
+	Volt::route('admin/timers', 'timer')->name('timers.index');
 	Volt::route('admin/athletes', 'athletes')->name('athletes.index');
 	Volt::route('admin/timing', 'timing')->name('timing.index');
 	Volt::route('admin/sprints', 'sprints')->name('sprints.index');

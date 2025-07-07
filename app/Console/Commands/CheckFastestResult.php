@@ -34,17 +34,17 @@ class CheckFastestResult extends Command
 		$elements = [
 			'RUNNING_SPRINT',
 			'SKEELER_SPRINT',
+			'CYCLING',
 		];
 
-		foreach($elements as $element)
+		foreach ($elements as $element)
 		{
 			$this->getFastestResults($element);
 		}
 
-
 		foreach ($categories as $category)
 		{
-			foreach($elements as $element)
+			foreach ($elements as $element)
 			{
 				$this->updatePointsByCategory($category, $element);
 			}
@@ -64,7 +64,7 @@ class CheckFastestResult extends Command
 			$timers = Timer::query()
 			               ->where('athlete_id', $atlete->id)
 			               ->where('points', '>', 0)
-			               ->orderBy('total')
+			               ->orderByDesc('points')
 			               ->take(3)
 			               ->get();
 
@@ -114,6 +114,7 @@ class CheckFastestResult extends Command
 		{
 			Timer::query()
 			     ->where('athlete_id', $atlete->id)
+			     ->whereLike('element', $element . '%')
 			     ->update(['fastest' => 0]);
 
 			$timer = Timer::query()

@@ -24,6 +24,9 @@
                 <flux:navlist.item icon="home" :href="route('sprint.overview')" :current="request()->routeIs('sprint.overview')" wire:navigate>
                     Sprint Indeling
                 </flux:navlist.item>
+                <flux:navlist.item icon="home" :href="route('timers.index')" :current="request()->routeIs('timers.index')" wire:navigate>
+                    Tijdswaarnemingen
+                </flux:navlist.item>
             @endif
             <flux:navlist.item icon="home" :href="route('timing.index')" :current="request()->routeIs('timing.index')" wire:navigate>Timers</flux:navlist.item>
 
