@@ -89,7 +89,7 @@ new class extends Component {
 
 	<flux:select variant="listbox" wire:model.live="category" placeholder="Category" class="mb-3" clearable>
 		@foreach($categories as $category)
-			<flux:select.option value="{{$category->name}}">{{$category->name}}</flux:select.option>
+			<flux:select.option value="{{$category->value}}">{{$category->name}}</flux:select.option>
 		@endforeach
 	</flux:select>
 
