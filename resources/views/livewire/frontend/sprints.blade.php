@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Sprint;
 use App\Models\Timer;
 use Livewire\Volt\Component;
@@ -41,14 +42,14 @@ new class extends Component {
 				                                                  ->whereColumn('run_id', 'sprints.id')
 				                                                  ->whereColumn('athlete_id', 'sprints.athlete_1')
 				                                                  ->limit(1),
-				                 'athlete_two_points'     => Timer::select('points')
-				                                                  ->whereColumn('run_id', 'sprints.id')
-				                                                  ->whereColumn('athlete_id', 'sprints.athlete_2')
-				                                                  ->limit(1),
-				                 'athlete_one_points'     => Timer::select('points')
-				                                                  ->whereColumn('run_id', 'sprints.id')
-				                                                  ->whereColumn('athlete_id', 'sprints.athlete_1')
-				                                                  ->limit(1),
+				                 'athlete_two_points' => Timer::select('points')
+				                                              ->whereColumn('run_id', 'sprints.id')
+				                                              ->whereColumn('athlete_id', 'sprints.athlete_2')
+				                                              ->limit(1),
+				                 'athlete_one_points' => Timer::select('points')
+				                                              ->whereColumn('run_id', 'sprints.id')
+				                                              ->whereColumn('athlete_id', 'sprints.athlete_1')
+				                                              ->limit(1),
 			                 ])
 			                 ->whereElement($this->element)
 			                 ->orderByDesc('id')
@@ -64,8 +65,11 @@ new class extends Component {
 			                ->get();
 		}
 
+		$categories = Category::all();
+
 		return [
 			'results' => $results,
+			'categories' => $categories,
 		];
 	}
 
@@ -84,13 +88,9 @@ new class extends Component {
 	</flux:select>
 
 	<flux:select variant="listbox" wire:model.live="category" placeholder="Category" class="mb-3" clearable>
-		<flux:select.option value="M0910">Meisjes 2009-2010</flux:select.option>
-		<flux:select.option value="M1112">Meisjes 2011-2012</flux:select.option>
-		<flux:select.option value="M1314">Meisjes 2013-2014</flux:select.option>
-		<flux:select.option value="M1618">Meisjes 2016-2018</flux:select.option>
-		<flux:select.option value="J2012">Jongens 2012</flux:select.option>
-		<flux:select.option value="J1314">Jongens 2013-2014</flux:select.option>
-		<flux:select.option value="J1518">Jongens 2015-2018</flux:select.option>
+		@foreach($categories as $category)
+			<flux:select.option value="{{$category->name}}">{{$category->name}}</flux:select.option>
+		@endforeach
 	</flux:select>
 
 

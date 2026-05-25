@@ -16,8 +16,11 @@ new class extends Component {
 		               ->orderByDesc('points')
 		               ->get();
 
+		$categories = Category::all();
+
 		return [
 			'results' => $points,
+			'categories' => $categories,
 		];
 	}
 
@@ -25,13 +28,9 @@ new class extends Component {
 
 <div>
 	<flux:select variant="listbox" wire:model.live="category" placeholder="Category" class="mb-3" clearable>
-		<flux:select.option value="M0910">Meisjes 2009-2010</flux:select.option>
-		<flux:select.option value="M1112">Meisjes 2011-2012</flux:select.option>
-		<flux:select.option value="M1314">Meisjes 2013-2014</flux:select.option>
-		<flux:select.option value="M1618">Meisjes 2016-2018</flux:select.option>
-		<flux:select.option value="J2012">Jongens 2012</flux:select.option>
-		<flux:select.option value="J1314">Jongens 2013-2014</flux:select.option>
-		<flux:select.option value="J1518">Jongens 2015-2018</flux:select.option>
+		@foreach($categories as $category)
+			<flux:select.option value="{{$category->name}}">{{$category->name}}</flux:select.option>
+		@endforeach
 	</flux:select>
 
 	@foreach($results as $index => $result)

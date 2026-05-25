@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Athlete;
+use App\Models\Category;
 use App\Models\Sprint;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Reactive;
@@ -12,6 +13,7 @@ new class extends Component {
 	public int $id = 0;
 
 	public ?Athlete $athlete;
+	public          $categories = [];
 
 	public string $name     = '';
 	public string $start_no = '';
@@ -23,9 +25,11 @@ new class extends Component {
 	{
 		$this->athlete = Athlete::query()->find($this->id);
 
-		$this->name     = $this->athlete->name ?? '';
+		$this->categories = Category::all();
+
+		$this->name = $this->athlete->name ?? '';
 		$this->start_no = $this->athlete->start_no ?? '';
-		$this->club     = $this->athlete->club ?? '';
+		$this->club = $this->athlete->club ?? '';
 		$this->category = $this->athlete->category ?? '';
 
 		if ($this->athlete)
@@ -85,9 +89,9 @@ new class extends Component {
 	private function validated()
 	{
 		return $this->validate([
-			'name'     => 'required|min:3',
+			'name' => 'required|min:3',
 			'start_no' => ['required', 'int', Rule::unique('athletes')->ignore($this->id)],
-			'club'     => 'required|string|max:255',
+			'club' => 'required|string|max:255',
 			'category' => 'required|string|max:255',
 			'elements' => 'array',
 		]);
@@ -108,13 +112,9 @@ new class extends Component {
 				<flux:input wire:model="start_no" label="Startnummer" placeholder="Startnummer"/>
 
 				<flux:select variant="listbox" wire:model="category" placeholder="Category" label="Categorie">
-					<flux:select.option value="M0910">Meisjes 2009-2010</flux:select.option>
-					<flux:select.option value="M1112">Meisjes 2011-2012</flux:select.option>
-					<flux:select.option value="M1314">Meisjes 2013-2014</flux:select.option>
-					<flux:select.option value="M1618">Meisjes 2016-2018</flux:select.option>
-					<flux:select.option value="J2012">Jongens 2012</flux:select.option>
-					<flux:select.option value="J1314">Jongens 2013-2014</flux:select.option>
-					<flux:select.option value="J1518">Jongens 2015-2018</flux:select.option>
+					@foreach($categories as $category)
+						<flux:select.option value="{{$category->name}}">{{$category->name}}</flux:select.option>
+					@endforeach
 				</flux:select>
 
 				<flux:select variant="listbox" wire:model="club" placeholder="Vereniging" label="Vereniging">
