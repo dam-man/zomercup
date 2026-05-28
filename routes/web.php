@@ -7,6 +7,9 @@ use Livewire\Volt\Volt;
 Volt::route('/', 'frontend.home')->name('home');
 Volt::route('/sprints', 'frontend.sprints')->name('frontend.sprints');
 
+Volt::route('/login', 'auth.login')
+    ->name('login');
+
 Route::middleware(['auth'])->group(function () {
 	Volt::route('admin/timers', 'timer')->name('timers.index');
 	Volt::route('admin/athletes', 'athletes')->name('athletes.index');

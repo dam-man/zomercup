@@ -76,6 +76,27 @@ new class extends Component {
 
 		$this->athlete->update($validated);
 
+		$knownElements = ['CYCLING', 'RUNNING_3KM', 'INLINE_SKATING'];
+
+		foreach ($knownElements as $elementType)
+		{
+			$exists = $this->athlete->elements()
+				->where('element', $elementType)
+				->exists();
+
+			if (in_array($elementType, $this->elements) && ! $exists)
+			{
+				$this->athlete->elements()->create(['element' => $elementType]);
+			}
+			elseif ( ! in_array($elementType, $this->elements) && $exists)
+			{
+				$this->athlete->elements()
+					->where('element', $elementType)
+					->whereNull('start')
+					->delete();
+			}
+		}
+
 		Flux::toast(
 			text: 'Deelnemer is bijgewerkt',
 			heading: 'Succes',
