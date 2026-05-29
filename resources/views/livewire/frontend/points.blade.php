@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Point;
 use Livewire\Volt\Component;
 
@@ -34,14 +35,14 @@ new class extends Component {
 	</flux:select>
 
 	@foreach($results as $index => $result)
-	<div class="w-full flex mt-3 border border-gray-600 p-3 rounded-md items-center">
-		<div class="ml-3 mr-4 flex-shrink-0 rounded-md flex items-center justify-center text-lg font-semibold">
-			{{$index+1}}
+		<div class="w-full flex mt-3 border border-gray-600 p-3 rounded-md items-center">
+			<div class="ml-3 mr-4 flex-shrink-0 rounded-md flex items-center justify-center text-lg font-semibold">
+				{{$index+1}}
+			</div>
+			<div class="flex-1">
+				<div class="float-right font-bold">{{$result->points}}</div>
+				{{$result->athlete->name}}
+			</div>
 		</div>
-		<div class="flex-1">
-			<div class="float-right font-bold">{{$result->points}}</div>
-			{{$result->athlete->name}}
-		</div>
-	</div>
 	@endforeach
 </div>
